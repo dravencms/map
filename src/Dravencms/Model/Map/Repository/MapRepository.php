@@ -5,7 +5,7 @@
 
 namespace Dravencms\Model\Map\Repository;
 
-use App\Model\BaseRepository;
+use Dravencms\Locale\TLocalizedRepository;
 use Dravencms\Model\Map\Entities\Map;
 use Gedmo\Translatable\TranslatableListener;
 use Kdyby\Doctrine\EntityManager;
@@ -19,8 +19,10 @@ use Salamek\Cms\Models\ILocale;
  * Class MapRepository
  * @package App\Model\Map\Repository
  */
-class MapRepository extends BaseRepository implements ICmsComponentRepository
+class MapRepository implements ICmsComponentRepository
 {
+    use TLocalizedRepository;
+
     /** @var \Kdyby\Doctrine\EntityRepository */
     private $mapRepository;
 
