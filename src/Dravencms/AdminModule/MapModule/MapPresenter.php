@@ -7,11 +7,11 @@
 namespace Dravencms\AdminModule\MapModule;
 
 
-use Dravencms\AdminModule\Components\Map\MapFormFactory;
-use Dravencms\AdminModule\Components\Map\MapGridFactory;
+use Dravencms\AdminModule\Components\Map\MapForm\MapFormFactory;
+use Dravencms\AdminModule\Components\Map\MapGrid\MapGridFactory;
 use Dravencms\AdminModule\SecuredPresenter;
-use App\Model\Map\Entities\Map;
-use App\Model\Map\Repository\MapRepository;
+use Dravencms\Model\Map\Entities\Map;
+use Dravencms\Model\Map\Repository\MapRepository;
 
 /**
  * Description of ArticlePresenter

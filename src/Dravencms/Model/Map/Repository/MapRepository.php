@@ -3,11 +3,10 @@
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
 
-namespace App\Model\Map\Repository;
+namespace Dravencms\Model\Map\Repository;
 
 use App\Model\BaseRepository;
-use App\Model\Carousel\Entities\Carousel;
-use App\Model\Map\Entities\Map;
+use Dravencms\Model\Map\Entities\Map;
 use Gedmo\Translatable\TranslatableListener;
 use Kdyby\Doctrine\EntityManager;
 use Nette;

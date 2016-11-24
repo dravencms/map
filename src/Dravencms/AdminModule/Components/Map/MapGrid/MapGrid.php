@@ -19,11 +19,11 @@
  * MA 02110-1301  USA
  */
 
-namespace Dravencms\AdminModule\Components\Map;
+namespace Dravencms\AdminModule\Components\Map\MapGrid;
 
 use Dravencms\Components\BaseGridFactory;
 use App\Model\Locale\Repository\LocaleRepository;
-use App\Model\Map\Repository\MapRepository;
+use Dravencms\Model\Map\Repository\MapRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
 

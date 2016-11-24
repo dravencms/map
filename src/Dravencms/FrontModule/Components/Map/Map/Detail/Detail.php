@@ -1,6 +1,6 @@
 <?php
 
-namespace Dravencms\FrontModule\Components\Map\Map;
+namespace Dravencms\FrontModule\Components\Map\Map\Detail;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -8,7 +8,7 @@ namespace Dravencms\FrontModule\Components\Map\Map;
  * and open the template in the editor.
  */
 use Dravencms\Components\BaseControl;
-use App\Model\Map\Repository\MapRepository;
+use Dravencms\Model\Map\Repository\MapRepository;
 use Salamek\Cms\ICmsActionOption;
 
 /**
