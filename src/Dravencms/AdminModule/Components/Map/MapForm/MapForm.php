@@ -21,7 +21,7 @@
 namespace Dravencms\AdminModule\Components\Map\MapForm;
 
 use Dravencms\Components\BaseFormFactory;
-use App\Model\Locale\Repository\LocaleRepository;
+use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Map\Entities\Map;
 use Dravencms\Model\Map\Repository\MapRepository;
 use Kdyby\Doctrine\EntityManager;

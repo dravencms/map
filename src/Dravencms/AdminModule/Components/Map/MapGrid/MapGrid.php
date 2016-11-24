@@ -22,7 +22,7 @@
 namespace Dravencms\AdminModule\Components\Map\MapGrid;
 
 use Dravencms\Components\BaseGridFactory;
-use App\Model\Locale\Repository\LocaleRepository;
+use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Map\Repository\MapRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
