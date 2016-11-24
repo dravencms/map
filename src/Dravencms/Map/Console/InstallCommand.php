@@ -37,12 +37,12 @@ class InstallCommand extends Command
 
             $entityManager->persist($aclResource);
 
-            $aclOperation = new AclOperation($aclResource, 'edit', 'Allows editation of map');
-            $entityManager->persist($aclOperation);
-            $aclOperation = new AclOperation($aclResource, 'delete', 'Allows deletion of map');
-            $entityManager->persist($aclOperation);
+            $aclOperationEdit = new AclOperation($aclResource, 'edit', 'Allows editation of map');
+            $entityManager->persist($aclOperationEdit);
+            $aclOperationDelete = new AclOperation($aclResource, 'delete', 'Allows deletion of map');
+            $entityManager->persist($aclOperationDelete);
 
-            $adminMenu = new Menu('Maps', ':Admin:Map:Map', 'fa-map', $aclOperation);
+            $adminMenu = new Menu('Maps', ':Admin:Map:Map', 'fa-map', $aclOperationEdit);
 
             $foundRoot = $adminMenuRepository->getOneByName('Site items');
 
