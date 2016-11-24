@@ -7,7 +7,7 @@ namespace Dravencms\FrontModule\Components\Map\Map\Detail;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-use Dravencms\Components\BaseControl;
+use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Model\Map\Repository\MapRepository;
 use Salamek\Cms\ICmsActionOption;
 

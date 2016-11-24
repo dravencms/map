@@ -21,18 +21,18 @@
 
 namespace Dravencms\AdminModule\Components\Map\MapGrid;
 
-use Dravencms\Components\BaseGridFactory;
+use Dravencms\Components\BaseControl\BaseControl;
+use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Map\Repository\MapRepository;
 use Kdyby\Doctrine\EntityManager;
-use Nette\Application\UI\Control;
 
 /**
  * Description of MapGrid
  *
  * @author Adam Schubert <adam.schubert@sg1-game.net>
  */
-class MapGrid extends Control
+class MapGrid extends BaseControl
 {
 
     /** @var BaseGridFactory */
