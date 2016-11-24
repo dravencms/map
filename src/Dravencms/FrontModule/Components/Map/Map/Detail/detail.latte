@@ -1,0 +1,36 @@
+
+<article class="map-section {$map->getName()|webalize}">
+    {if $map->isShowName()}
+        <h3 class="title">{$map->getName()}</h3>
+    {/if}
+    <div class="gmap-wrapper" id="map">
+        <div id="gmap_canvas_{$map->getName()|webalize}" style="height:{$map->getHeight()}{$map->getHeightType()|noescape};width:{$map->getWidth()}{$map->getWidthType()|noescape};"></div>
+    </div><!--//gmap-wrapper-->
+</article>
+
+<script type="text/javascript">
+    function initMap() {
+
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            "address": "{$map->getStreet()|noescape} {$map->getZipCode()|noescape} {$map->getCity()|noescape}"
+        }, function (results) {
+            var myOptions = {
+                zoom:{$map->getZoom()|noescape},
+                center: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()),
+                mapTypeId: google.maps.MapTypeId.{$map->getType()|noescape}
+            };
+            map = new google.maps.Map(document.getElementById("gmap_canvas_{$map->getName()|webalize|noescape}"), myOptions);
+            marker = new google.maps.Marker({ map: map, position: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng())});
+            infowindow = new google.maps.InfoWindow({ content: "<b>{$map->getTitle()|noescape}</b><br/>{$map->getStreet()|noescape}<br/>{$map->getZipCode()|noescape} {$map->getCity()|noescape}"});
+            google.maps.event.addListener(marker, "click", function () {
+                infowindow.open(map, marker);
+            });
+            infowindow.open(map, marker);
+
+        });
+    }
+    /*google.maps.event.addDomListener(window, 'load', init_map);*/
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={$map->getApiKey()}&callback=initMap" async defer></script>
+
