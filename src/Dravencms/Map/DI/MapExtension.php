@@ -9,7 +9,7 @@ use Nette\DI\Configurator;
 use Salamek\Cms\DI\CmsExtension;
 /**
  * Class MapExtension
- * @package Dravencms\Form\DI
+ * @package Dravencms\Map\DI
  */
 class MapExtension extends Nette\DI\CompilerExtension
 {
