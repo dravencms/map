@@ -1,6 +1,6 @@
 {
   "name": "dravencms/map",
-  "type": "library",
+  "type": "dravencms-package",
   "description": "Map module for dravencms",
   "keywords": [
     "dravencms",
@@ -22,6 +22,19 @@
   "autoload": {
     "psr-0": {
       "Dravencms\\": "src/"
+    }
+  },
+  "extra": {
+    "dravencms": {
+      "configuration": {
+        "extensions": {
+          "timeline": "Dravencms\\Map\\DI\\MapExtension"
+        }
+      },
+      "scripts": {
+        "post-install": "Dravencms\\Map\\Script\\PostInstall",
+        "pre-uninstall": "Dravencms\\Map\\Script\\PreUninstall"
+      }
     }
   }
 }
