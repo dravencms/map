@@ -28,7 +28,7 @@
     "dravencms": {
       "configuration": {
         "extensions": {
-          "timeline": "Dravencms\\Map\\DI\\MapExtension"
+          "map": "Dravencms\\Map\\DI\\MapExtension"
         }
       },
       "scripts": {
