@@ -68,6 +68,14 @@ class MapRepository implements ICmsComponentRepository
     }
 
     /**
+     * @return Map[]
+     */
+    public function getActive()
+    {
+        return $this->mapRepository->findBy(['isActive' => true]);
+    }
+
+    /**
      * @param $name
      * @param ILocale $locale
      * @param Map|null $mapIgnore
