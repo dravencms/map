@@ -1,2 +1,6 @@
 - Dravencms\Model\Map\Repository\MapRepository
 - Dravencms\Model\Map\Repository\MapCmsRepository
+
+- Dravencms\Model\Map\Fixtures\AclOperationFixtures
+- Dravencms\Model\Map\Fixtures\AclResourceFixtures
+- Dravencms\Model\Map\Fixtures\AdminMenuFixtures
