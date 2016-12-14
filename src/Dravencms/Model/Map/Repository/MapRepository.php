@@ -10,16 +10,13 @@ use Dravencms\Model\Map\Entities\Map;
 use Gedmo\Translatable\TranslatableListener;
 use Kdyby\Doctrine\EntityManager;
 use Nette;
-use Salamek\Cms\CmsActionOption;
-use Salamek\Cms\ICmsActionOption;
-use Salamek\Cms\ICmsComponentRepository;
-use Salamek\Cms\Models\ILocale;
+use Dravencms\Model\Locale\Entities\ILocale;
 
 /**
  * Class MapRepository
  * @package App\Model\Map\Repository
  */
-class MapRepository implements ICmsComponentRepository
+class MapRepository
 {
     use TLocalizedRepository;
 
@@ -101,49 +98,5 @@ class MapRepository implements ICmsComponentRepository
         $query->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale->getLanguageCode());
 
         return (is_null($query->getOneOrNullResult()));
-    }
-
-
-    /**
-     * @param string $componentAction
-     * @return ICmsActionOption[]
-     */
-    public function getActionOptions($componentAction)
-    {
-        switch ($componentAction)
-        {
-            case 'Detail':
-                $return = [];
-                /** @var Map $map */
-                foreach ($this->mapRepository->findBy(['isActive' => true]) AS $map) {
-                    $return[] = new CmsActionOption($map->getName(), ['id' => $map->getId()]);
-                }
-                break;
-
-            default:
-                return false;
-                break;
-        }
-
-
-        return $return;
-    }
-
-    /**
-     * @param string $componentAction
-     * @param array $parameters
-     * @param ILocale $locale
-     * @return null|CmsActionOption
-     */
-    public function getActionOption($componentAction, array $parameters, ILocale $locale)
-    {
-        $found = $this->findTranslatedOneBy($this->mapRepository, $locale, $parameters + ['isActive' => true]);
-
-        if ($found)
-        {
-            return new CmsActionOption($found->getName(), $parameters);
-        }
-
-        return null;
     }
 }
