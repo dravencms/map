@@ -23,9 +23,11 @@ namespace Dravencms\AdminModule\Components\Map\MapGrid;
 
 use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
+use Dravencms\Locale\CurrentLocale;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Map\Repository\MapRepository;
 use Kdyby\Doctrine\EntityManager;
+use Kdyby\GeneratedProxy\__CG__\Dravencms\Model\Locale\Entities\Currency;
 
 /**
  * Description of MapGrid
@@ -47,19 +49,29 @@ class MapGrid extends BaseControl
     /** @var LocaleRepository */
     private $localeRepository;
 
+    /** @var CurrentLocale */
+    private $currentLocale;
+
     /**
      * @var array
      */
     public $onDelete = [];
 
     /**
-     * CarouselGrid constructor.
+     * MapGrid constructor.
      * @param MapRepository $mapRepository
      * @param BaseGridFactory $baseGridFactory
      * @param EntityManager $entityManager
      * @param LocaleRepository $localeRepository
+     * @param CurrentLocale $currentLocale
      */
-    public function __construct(MapRepository $mapRepository, BaseGridFactory $baseGridFactory, EntityManager $entityManager, LocaleRepository $localeRepository)
+    public function __construct(
+        MapRepository $mapRepository,
+        BaseGridFactory $baseGridFactory,
+        EntityManager $entityManager,
+        LocaleRepository $localeRepository,
+        CurrentLocale $currentLocale
+    )
     {
         parent::__construct();
 
@@ -67,12 +79,13 @@ class MapGrid extends BaseControl
         $this->mapRepository = $mapRepository;
         $this->entityManager = $entityManager;
         $this->localeRepository = $localeRepository;
+        $this->currentLocale = $currentLocale;
     }
 
 
     /**
      * @param $name
-     * @return \Dravencms\Components\BaseGrid
+     * @return \Dravencms\Components\BaseGrid\BaseGrid
      */
     public function createComponentGrid($name)
     {
@@ -80,11 +93,11 @@ class MapGrid extends BaseControl
 
         $grid->setModel($this->mapRepository->getMapQueryBuilder());
 
-        $grid->addColumnText('name', 'Name')
+        $grid->addColumnText('identifier', 'Identifier')
             ->setFilterText()
             ->setSuggestion();
 
-        $grid->addColumnDate('updatedAt', 'Last edit', $this->localeRepository->getLocalizedDateTimeFormat())
+        $grid->addColumnDate('updatedAt', 'Last edit', $this->currentLocale->getDateTimeFormat())
             ->setSortable()
             ->setFilterDate();
         $grid->getColumn('updatedAt')->cellPrototype->class[] = 'center';
@@ -104,7 +117,7 @@ class MapGrid extends BaseControl
                 })
                 ->setIcon('trash-o')
                 ->setConfirm(function ($row) {
-                    return ['Opravdu chcete smazat map %s ?', $row->name];
+                    return ['Opravdu chcete smazat map %s ?', $row->identifier];
                 });
 
 

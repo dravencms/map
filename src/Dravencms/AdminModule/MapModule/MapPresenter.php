@@ -56,14 +56,14 @@ class MapPresenter extends SecuredPresenter
 
             $this->map = $map;
 
-            $this->template->h1 = sprintf('Edit map „%s“', $map->getName());
+            $this->template->h1 = sprintf('Edit map „%s“', $map->getIdentifier());
         } else {
             $this->template->h1 = 'New map';
         }
     }
 
     /**
-     * @return \AdminModule\Components\Map\MapForm
+     * @return \Dravencms\AdminModule\Components\Map\MapForm\MapForm
      */
     protected function createComponentFormMap()
     {
@@ -77,7 +77,7 @@ class MapPresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\Map\MapGrid
+     * @return \Dravencms\AdminModule\Components\Map\MapGrid\MapGrid
      */
     public function createComponentGridMap()
     {

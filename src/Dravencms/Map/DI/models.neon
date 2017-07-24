@@ -1,4 +1,5 @@
 - Dravencms\Model\Map\Repository\MapRepository
+- Dravencms\Model\Map\Repository\MapTranslationRepository
 - Dravencms\Model\Map\Repository\MapCmsRepository
 
 - Dravencms\Model\Map\Fixtures\AclOperationFixtures

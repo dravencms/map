@@ -57,16 +57,16 @@ class MapCmsRepository implements ICmsComponentRepository
     /**
      * @param string $componentAction
      * @param array $parameters
-     * @param ILocale $locale
      * @return null|CmsActionOption
      */
-    public function getActionOption($componentAction, array $parameters, ILocale $locale)
+    public function getActionOption($componentAction, array $parameters)
     {
-        $found = $this->mapRepository->findTranslatedOneBy($this->mapRepository, $locale, $parameters + ['isActive' => true]);
-
+        $found = $this->mapRepository->getOneByParameters($parameters + ['isActive' => true]);
+        
         if ($found)
         {
-            return new CmsActionOption($found->getName(), $parameters);
+            $cmsActionOption =  new CmsActionOption($found->getIdentifier(), $parameters);
+            return $cmsActionOption;
         }
 
         return null;

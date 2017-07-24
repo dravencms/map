@@ -18,8 +18,6 @@ use Dravencms\Model\Locale\Entities\ILocale;
  */
 class MapRepository
 {
-    use TLocalizedRepository;
-
     /** @var \Kdyby\Doctrine\EntityRepository */
     private $mapRepository;
 
@@ -73,30 +71,11 @@ class MapRepository
     }
 
     /**
-     * @param $name
-     * @param ILocale $locale
-     * @param Map|null $mapIgnore
-     * @return boolean
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @param array $parameters
+     * @return null|Map
      */
-    public function isNameFree($name, ILocale $locale, Map $mapIgnore = null)
+    public function getOneByParameters(array $parameters = [])
     {
-        $qb = $this->mapRepository->createQueryBuilder('m')
-            ->select('m')
-            ->where('m.name = :name')
-            ->setParameters([
-                'name' => $name
-            ]);
-
-        if ($mapIgnore)
-        {
-            $qb->andWhere('m != :mapIgnore')
-                ->setParameter('mapIgnore', $mapIgnore);
-        }
-
-        $query = $qb->getQuery();
-        $query->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale->getLanguageCode());
-
-        return (is_null($query->getOneOrNullResult()));
+        return $this->mapRepository->findOneBy($parameters);
     }
 }

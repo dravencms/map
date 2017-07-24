@@ -24,7 +24,9 @@ use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Map\Entities\Map;
+use Dravencms\Model\Map\Entities\MapTranslation;
 use Dravencms\Model\Map\Repository\MapRepository;
+use Dravencms\Model\Map\Repository\MapTranslationRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Form;
 
@@ -47,6 +49,9 @@ class MapForm extends BaseControl
     /** @var LocaleRepository */
     private $localeRepository;
 
+    /** @var MapTranslationRepository */
+    private $mapTranslationRepository;
+
     /** @var Map|null */
     private $map = null;
 
@@ -58,6 +63,7 @@ class MapForm extends BaseControl
      * @param BaseFormFactory $baseFormFactory
      * @param EntityManager $entityManager
      * @param MapRepository $mapRepository
+     * @param MapTranslationRepository $mapTranslationRepository
      * @param LocaleRepository $localeRepository
      * @param Map|null $map
      */
@@ -65,6 +71,7 @@ class MapForm extends BaseControl
         BaseFormFactory $baseFormFactory,
         EntityManager $entityManager,
         MapRepository $mapRepository,
+        MapTranslationRepository $mapTranslationRepository,
         LocaleRepository $localeRepository,
         Map $map = null
     ) {
@@ -75,13 +82,12 @@ class MapForm extends BaseControl
         $this->baseFormFactory = $baseFormFactory;
         $this->entityManager = $entityManager;
         $this->mapRepository = $mapRepository;
+        $this->mapTranslationRepository = $mapTranslationRepository;
         $this->localeRepository = $localeRepository;
 
 
         if ($this->map) {
             $defaults = [
-                /*'name' => $this->map->getName(),
-                'title' => $this->map->getTitle(),*/
                 'apiKey' => $this->map->getApiKey(),
                 'street' => $this->map->getStreet(),
                 'zipCode' => $this->map->getZipCode(),
@@ -96,13 +102,10 @@ class MapForm extends BaseControl
                 'isShowName' => $this->map->isShowName()
             ];
 
-            $repository = $this->entityManager->getRepository('Gedmo\Translatable\Entity\Translation');
-            $defaults += $repository->findTranslations($this->map);
-
-            $defaultLocale = $this->localeRepository->getDefault();
-            if ($defaultLocale) {
-                $defaults[$defaultLocale->getLanguageCode()]['name'] = $this->map->getName();
-                $defaults[$defaultLocale->getLanguageCode()]['title'] = $this->map->getTitle();
+            foreach ($this->map->getTranslations() AS $translation)
+            {
+                $defaults[$translation->getLocale()->getLanguageCode()]['name'] = $translation->getName();
+                $defaults[$translation->getLocale()->getLanguageCode()]['title'] = $translation->getTitle();
             }
         }
         else{
@@ -116,7 +119,7 @@ class MapForm extends BaseControl
     }
 
     /**
-     * @return \Dravencms\Components\BaseForm
+     * @return \Dravencms\Components\BaseForm\BaseForm
      */
     protected function createComponentForm()
     {
@@ -193,6 +196,9 @@ class MapForm extends BaseControl
         $form->addText('height')
             ->setRequired('Please enter map height.');
 
+        $form->addText('identifier')
+            ->setRequired('Please enter map identifier.');
+
         $widthType = [];
         $widthType[Map::WIDTH_TYPE_PX] = 'Pixels';
         $widthType[Map::WIDTH_TYPE_PERCENT] = 'Percent';
@@ -225,7 +231,7 @@ class MapForm extends BaseControl
         $values = $form->getValues();
 
         foreach ($this->localeRepository->getActive() AS $activeLocale) {
-            if (!$this->mapRepository->isNameFree($values->{$activeLocale->getLanguageCode()}->name, $activeLocale, $this->map)) {
+            if (!$this->mapTranslationRepository->isNameFree($values->{$activeLocale->getLanguageCode()}->name, $activeLocale, $this->map)) {
                 $form->addError('Tento název je již zabrán.');
             }
         }
@@ -245,8 +251,7 @@ class MapForm extends BaseControl
         
         if ($this->map) {
             $map = $this->map;
-            /*$map->setName($values->name);
-            $map->setTitle($values->title);*/
+            $map->setIdentifier($values->identifier);
             $map->setApiKey($values->apiKey);
             $map->setStreet($values->street);
             $map->setZipCode($values->zipCode);
@@ -261,19 +266,30 @@ class MapForm extends BaseControl
             $map->setIsActive($values->isActive);
             $map->setIsShowName($values->isShowName);
         } else {
-            $defaultLocale = $this->localeRepository->getDefault();
-            $map = new Map($values->{$defaultLocale->getLanguageCode()}->name, $values->{$defaultLocale->getLanguageCode()}->title, $values->apiKey, $values->street, $values->zipCode, $values->city, $values->type, $values->zoom, $values->height, $values->width, $values->heightType, $values->widthType, $values->isActive, $values->isShowName);
+            $map = new Map($values->identifier, $values->apiKey, $values->street, $values->zipCode, $values->city, $values->type, $values->zoom, $values->height, $values->width, $values->heightType, $values->widthType, $values->isActive, $values->isShowName);
         }
-
-        $repository = $this->entityManager->getRepository('Gedmo\\Translatable\\Entity\\Translation');
-
-        foreach ($this->localeRepository->getActive() AS $activeLocale) {
-            $repository->translate($map, 'name', $activeLocale->getLanguageCode(), $values->{$activeLocale->getLanguageCode()}->name)
-                ->translate($map, 'title', $activeLocale->getLanguageCode(), $values->{$activeLocale->getLanguageCode()}->title);
-        }
-
+        
         $this->entityManager->persist($map);
 
+        $this->entityManager->flush();
+
+        foreach ($this->localeRepository->getActive() AS $activeLocale) {
+            if ($mapTranslation = $this->mapTranslationRepository->getTranslation($map, $activeLocale))
+            {
+                $mapTranslation->setName($values->{$activeLocale->getLanguageCode()}->name);
+                $mapTranslation->setTitle($values->{$activeLocale->getLanguageCode()}->title);
+            }
+            else
+            {
+                $mapTranslation = new MapTranslation(
+                    $map,
+                    $activeLocale,
+                    $values->{$activeLocale->getLanguageCode()}->name,
+                    $values->{$activeLocale->getLanguageCode()}->title
+                );
+            }
+            $this->entityManager->persist($mapTranslation);
+        }
         $this->entityManager->flush();
 
         $this->onSuccess();

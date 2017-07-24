@@ -1,6 +1,7 @@
 <?php
 namespace Dravencms\Model\Map\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
@@ -32,17 +33,9 @@ class Map extends Nette\Object
 
     /**
      * @var string
-     * @Gedmo\Translatable
-     * @ORM\Column(type="string",length=255,nullable=false,unique=true)
-     */
-    private $name;
-
-    /**
-     * @var string
-     * @Gedmo\Translatable
      * @ORM\Column(type="string",length=255,nullable=true)
      */
-    private $title;
+    private $identifier;
 
     /**
      * @var string
@@ -117,22 +110,19 @@ class Map extends Nette\Object
      */
     private $isShowName;
 
-
     /**
-     * @Gedmo\Locale
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
-     * and it is not necessary because globally locale can be set in listener
+     * @var ArrayCollection|MapTranslation[]
+     * @ORM\OneToMany(targetEntity="MapTranslation", mappedBy="map",cascade={"persist", "remove"})
      */
-    private $locale;
+    private $translations;
 
     /**
      * Map constructor.
-     * @param string $name
-     * @param string $title
-     * @param string $street
-     * @param string $zipCode
-     * @param string $city
+     * @param $identifier
+     * @param $apiKey
+     * @param $street
+     * @param $zipCode
+     * @param $city
      * @param string $type
      * @param int $zoom
      * @param int $height
@@ -142,10 +132,9 @@ class Map extends Nette\Object
      * @param bool $isActive
      * @param bool $isShowName
      */
-    public function __construct($name, $title, $apiKey, $street, $zipCode, $city, $type = self::TYPE_SATELLITE, $zoom = 1, $height = 100, $width = 100, $heightType = self::HEIGHT_TYPE_PERCENT, $widthType = self::WIDTH_TYPE_PERCENT, $isActive = true, $isShowName = true)
+    public function __construct($identifier, $apiKey, $street, $zipCode, $city, $type = self::TYPE_SATELLITE, $zoom = 1, $height = 100, $width = 100, $heightType = self::HEIGHT_TYPE_PERCENT, $widthType = self::WIDTH_TYPE_PERCENT, $isActive = true, $isShowName = true)
     {
-        $this->name = $name;
-        $this->title = $title;
+        $this->identifier = $identifier;
         $this->apiKey = $apiKey;
         $this->street = $street;
         $this->zipCode = $zipCode;
@@ -158,30 +147,15 @@ class Map extends Nette\Object
         $this->widthType = $widthType;
         $this->isActive = $isActive;
         $this->isShowName = $isShowName;
+        $this->translations = new ArrayCollection();
     }
 
     /**
-     * @param string $name
+     * @param string $identifier
      */
-    public function setName($name)
+    public function setIdentifier($identifier)
     {
-        $this->name = $name;
-    }
-
-    /**
-     * @param $locale
-     */
-    public function setTranslatableLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
+        $this->identifier = $identifier;
     }
 
     /**
@@ -287,22 +261,6 @@ class Map extends Nette\Object
     /**
      * @return string
      */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @return string
-     */
     public function getStreet()
     {
         return $this->street;
@@ -394,6 +352,22 @@ class Map extends Nette\Object
     public function getApiKey()
     {
         return $this->apiKey;
+    }
+
+    /**
+     * @return ArrayCollection|MapTranslation[]
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
     }
 }
 
