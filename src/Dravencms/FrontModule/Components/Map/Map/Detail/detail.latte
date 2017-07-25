@@ -1,10 +1,12 @@
 
-<article class="map-section {$map->getName()|webalize}">
+{var $mapTranslation = $map->getTranslation($currentLocale)}
+
+<article class="map-section {$map->getIdentifier()|webalize}">
     {if $map->isShowName()}
-        <h3 class="title">{$map->getName()}</h3>
+        <h3 class="title">{$mapTranslation->getName()}</h3>
     {/if}
     <div class="gmap-wrapper" id="map">
-        <div id="gmap_canvas_{$map->getName()|webalize}" style="height:{$map->getHeight()}{$map->getHeightType()|noescape};width:{$map->getWidth()}{$map->getWidthType()|noescape};"></div>
+        <div id="gmap_canvas_{$map->getIdentifier()|webalize}" style="height:{$map->getHeight()}{$map->getHeightType()|noescape};width:{$map->getWidth()}{$map->getWidthType()|noescape};"></div>
     </div><!--//gmap-wrapper-->
 </article>
 
@@ -20,9 +22,9 @@
                 center: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()),
                 mapTypeId: google.maps.MapTypeId.{$map->getType()|noescape}
             };
-            map = new google.maps.Map(document.getElementById("gmap_canvas_{$map->getName()|webalize|noescape}"), myOptions);
+            map = new google.maps.Map(document.getElementById("gmap_canvas_{$map->getIdentifier()|webalize|noescape}"), myOptions);
             marker = new google.maps.Marker({ map: map, position: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng())});
-            infowindow = new google.maps.InfoWindow({ content: "<b>{$map->getTitle()|noescape}</b><br/>{$map->getStreet()|noescape}<br/>{$map->getZipCode()|noescape} {$map->getCity()|noescape}"});
+            infowindow = new google.maps.InfoWindow({ content: "<b>{$mapTranslation->getTitle()|noescape}</b><br/>{$map->getStreet()|noescape}<br/>{$map->getZipCode()|noescape} {$map->getCity()|noescape}"});
             google.maps.event.addListener(marker, "click", function () {
                 infowindow.open(map, marker);
             });

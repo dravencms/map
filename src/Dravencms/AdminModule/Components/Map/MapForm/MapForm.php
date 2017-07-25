@@ -99,7 +99,8 @@ class MapForm extends BaseControl
                 'widthType' => $this->map->getWidthType(),
                 'heightType' => $this->map->getHeightType(),
                 'isActive' => $this->map->isActive(),
-                'isShowName' => $this->map->isShowName()
+                'isShowName' => $this->map->isShowName(),
+                'identifier' => $this->map->getIdentifier()
             ];
 
             foreach ($this->map->getTranslations() AS $translation)

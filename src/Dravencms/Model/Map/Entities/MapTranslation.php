@@ -55,6 +55,7 @@ class MapTranslation extends Nette\Object
      */
     public function __construct(Map $map, Locale $locale, $name, $title)
     {
+        $this->map = $map;
         $this->name = $name;
         $this->title = $title;
         $this->locale = $locale;

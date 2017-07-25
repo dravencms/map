@@ -8,6 +8,7 @@ namespace Dravencms\FrontModule\Components\Map\Map\Detail;
  * and open the template in the editor.
  */
 use Dravencms\Components\BaseControl\BaseControl;
+use Dravencms\Locale\CurrentLocale;
 use Dravencms\Model\Map\Repository\MapRepository;
 use Salamek\Cms\ICmsActionOption;
 
@@ -24,12 +25,26 @@ class Detail extends BaseControl
     /** @var MapRepository */
     private $mapRepository;
 
-    public function __construct(ICmsActionOption $cmsActionOption, MapRepository $mapRepository)
+    /** @var CurrentLocale */
+    private $currentLocale;
+
+    /**
+     * Detail constructor.
+     * @param ICmsActionOption $cmsActionOption
+     * @param MapRepository $mapRepository
+     * @param CurrentLocale $currentLocale
+     */
+    public function __construct(
+        ICmsActionOption $cmsActionOption,
+        MapRepository $mapRepository,
+        CurrentLocale $currentLocale
+    )
     {
         parent::__construct();
 
         $this->cmsActionOption = $cmsActionOption;
         $this->mapRepository = $mapRepository;
+        $this->currentLocale = $currentLocale;
     }
 
     public function render()
@@ -37,6 +52,7 @@ class Detail extends BaseControl
         $template = $this->template;
 
         $template->map = $this->mapRepository->getOneById($this->cmsActionOption->getParameter('id'));
+        $template->currentLocale = $this->currentLocale;
 
         $template->setFile(__DIR__.'/detail.latte');
         $template->render();
