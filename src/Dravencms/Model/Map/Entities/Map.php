@@ -17,8 +17,9 @@ use Nette;
  * @ORM\Entity
  * @ORM\Table(name="mapMap")
  */
-class Map extends Nette\Object
+class Map
 {
+    use Nette\SmartObject;
     use Identifier;
     use TimestampableEntity;
 

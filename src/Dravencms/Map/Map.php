@@ -3,13 +3,15 @@
 namespace Dravencms\Map;
 
 
+use Nette\SmartObject;
+
 /**
  * Class Map
  * @package Dravencms\Map
  */
-class Map extends \Nette\Object
+class Map
 {
-
+    use SmartObject;
     public function __construct()
     {
     }
