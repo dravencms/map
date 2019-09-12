@@ -31,6 +31,11 @@
       "configuration": {
         "extensions": {
           "map": "Dravencms\\Map\\DI\\MapExtension"
+        },
+        "doctrine":{
+          "metadata": {
+            "Dravencms\\Model\\Map": "%appDir%/../vendor/dravencms/map/src/Dravencms/Model/Map"
+          }
         }
       },
       "scripts": {
