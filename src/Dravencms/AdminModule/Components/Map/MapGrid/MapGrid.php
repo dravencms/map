@@ -24,10 +24,10 @@ namespace Dravencms\AdminModule\Components\Map\MapGrid;
 use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Locale\CurrentLocale;
+use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Map\Repository\MapRepository;
 use Kdyby\Doctrine\EntityManager;
-use Kdyby\GeneratedProxy\__CG__\Dravencms\Model\Locale\Entities\Currency;
 
 /**
  * Description of MapGrid
@@ -70,7 +70,7 @@ class MapGrid extends BaseControl
         BaseGridFactory $baseGridFactory,
         EntityManager $entityManager,
         LocaleRepository $localeRepository,
-        CurrentLocale $currentLocale
+        CurrentLocaleResolver $currentLocaleResolver
     )
     {
         parent::__construct();
@@ -79,7 +79,7 @@ class MapGrid extends BaseControl
         $this->mapRepository = $mapRepository;
         $this->entityManager = $entityManager;
         $this->localeRepository = $localeRepository;
-        $this->currentLocale = $currentLocale;
+        $this->currentLocale = $currentLocaleResolver->getCurrentLocale();
     }
 
 

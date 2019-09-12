@@ -9,6 +9,7 @@ namespace Dravencms\FrontModule\Components\Map\Map\Detail;
  */
 use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Locale\CurrentLocale;
+use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Model\Map\Repository\MapRepository;
 use Salamek\Cms\ICmsActionOption;
 
@@ -37,14 +38,14 @@ class Detail extends BaseControl
     public function __construct(
         ICmsActionOption $cmsActionOption,
         MapRepository $mapRepository,
-        CurrentLocale $currentLocale
+        CurrentLocaleResolver $currentLocaleResolver
     )
     {
         parent::__construct();
 
         $this->cmsActionOption = $cmsActionOption;
         $this->mapRepository = $mapRepository;
-        $this->currentLocale = $currentLocale;
+        $this->currentLocale = $currentLocaleResolver->getCurrentLocale();
     }
 
     public function render()
