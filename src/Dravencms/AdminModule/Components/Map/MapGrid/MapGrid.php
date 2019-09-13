@@ -91,58 +91,45 @@ class MapGrid extends BaseControl
     {
         $grid = $this->baseGridFactory->create($this, $name);
 
-        $grid->setModel($this->mapRepository->getMapQueryBuilder());
+        $grid->setDataSource($this->mapRepository->getMapQueryBuilder());
 
         $grid->addColumnText('identifier', 'Identifier')
-            ->setFilterText()
-            ->setSuggestion();
+            ->setSortable()
+            ->setFilterText();
 
-        $grid->addColumnDate('updatedAt', 'Last edit', $this->currentLocale->getDateTimeFormat())
+        $grid->addColumnDateTime('updatedAt', 'Last edit')
+            ->setFormat($this->currentLocale->getDateTimeFormat())
+            ->setAlign('center')
             ->setSortable()
             ->setFilterDate();
-        $grid->getColumn('updatedAt')->cellPrototype->class[] = 'center';
 
         $grid->addColumnBoolean('isActive', 'Active');
 
 
         if ($this->presenter->isAllowed('map', 'edit')) {
-            $grid->addActionHref('edit', 'Upravit')
-                ->setIcon('pencil');
+
+            $grid->addAction('edit', 'Upravit')
+                ->setIcon('pencil')
+                ->setTitle('Upravit')
+                ->setClass('btn btn-xs btn-primary');
         }
 
         if ($this->presenter->isAllowed('map', 'delete')) {
-            $grid->addActionHref('delete', 'Smazat', 'delete!')
-                ->setCustomHref(function($row){
-                    return $this->link('delete!', $row->getId());
-                })
-                ->setIcon('trash-o')
-                ->setConfirm(function ($row) {
-                    return ['Opravdu chcete smazat map %s ?', $row->identifier];
-                });
-
-
-            $operations = ['delete' => 'Smazat'];
-            $grid->setOperation($operations, [$this, 'gridOperationsHandler'])
-                ->setConfirm('delete', 'Opravu chcete smazat %i map ?');
+            $grid->addAction('delete', '', 'delete!')
+                ->setIcon('trash')
+                ->setTitle('Smazat')
+                ->setClass('btn btn-xs btn-danger ajax')
+                ->setConfirm('Do you really want to delete row %s?', 'identifier');
+            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'handleDelete'];
         }
-        $grid->setExport();
+        $grid->addExportCsvFiltered('Csv export (filtered)', 'articles_filtered.csv')
+            ->setTitle('Csv export (filtered)');
+        $grid->addExportCsv('Csv export', 'articlesall.csv')
+            ->setTitle('Csv export');
 
         return $grid;
     }
 
-    /**
-     * @param $action
-     * @param $ids
-     */
-    public function gridOperationsHandler($action, $ids)
-    {
-        switch ($action)
-        {
-            case 'delete':
-                $this->handleDelete($ids);
-                break;
-        }
-    }
 
     /**
      * @param $id
