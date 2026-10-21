@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
@@ -8,7 +8,7 @@ namespace Dravencms\Model\Map\Repository;
 use Dravencms\Model\Map\Entities\Map;
 use Dravencms\Model\Map\Entities\MapTranslation;
 use Gedmo\Translatable\TranslatableListener;
-use Kdyby\Doctrine\EntityManager;
+use Dravencms\Database\EntityManager;
 use Nette;
 use Dravencms\Model\Locale\Entities\ILocale;
 
@@ -18,7 +18,7 @@ use Dravencms\Model\Locale\Entities\ILocale;
  */
 class MapTranslationRepository
 {
-    /** @var \Kdyby\Doctrine\EntityRepository */
+    /** @var \Dravencms\Database\EntityRepository */
     private $mapTranslationRepository;
 
     /** @var EntityManager */
@@ -60,7 +60,7 @@ class MapTranslationRepository
      * @return boolean
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isNameFree($name, ILocale $locale, Map $mapIgnore = null)
+    public function isNameFree($name, ILocale $locale, ?Map $mapIgnore = null)
     {
         $qb = $this->mapTranslationRepository->createQueryBuilder('mt')
             ->select('mt')

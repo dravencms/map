@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
@@ -8,7 +8,7 @@ namespace Dravencms\Model\Map\Repository;
 use Dravencms\Locale\TLocalizedRepository;
 use Dravencms\Model\Map\Entities\Map;
 use Gedmo\Translatable\TranslatableListener;
-use Kdyby\Doctrine\EntityManager;
+use Dravencms\Database\EntityManager;
 use Nette;
 use Dravencms\Model\Locale\Entities\ILocale;
 
@@ -18,7 +18,7 @@ use Dravencms\Model\Locale\Entities\ILocale;
  */
 class MapRepository
 {
-    /** @var \Kdyby\Doctrine\EntityRepository */
+    /** @var \Dravencms\Database\EntityRepository */
     private $mapRepository;
 
     /** @var EntityManager */

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Dravencms\Model\Map\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -7,16 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Dravencms\Model\Locale\Entities\ILocale;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Dravencms\Database\Attributes\TimestampableEntity;
+use Dravencms\Database\Attributes\Identifier;
 use Nette;
 
 /**
  * Class Map
  * @package App\Model\Map\Entities
- * @ORM\Entity
- * @ORM\Table(name="mapMap")
  */
+#[ORM\Entity]
+#[ORM\Table(name: "mapMap")]
 class Map
 {
     use Nette\SmartObject;
@@ -36,87 +36,87 @@ class Map
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=true)
      */
+    #[ORM\Column(type: "string",length: 255,nullable: true)]
     private $identifier;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=true)
      */
+    #[ORM\Column(type: "string",length: 255,nullable: true)]
     private $apiKey;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=true)
      */
+    #[ORM\Column(type: "string",length: 255,nullable: true)]
     private $street;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=true)
      */
+    #[ORM\Column(type: "string",length: 255,nullable: true)]
     private $zipCode;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=true)
      */
+    #[ORM\Column(type: "string",length: 255,nullable: true)]
     private $city;
 
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255)
      */
+    #[ORM\Column(type: "string",length: 255)]
     private $type;
 
     /**
      * @var integer
-     * @ORM\Column(type="integer",nullable=false)
      */
+    #[ORM\Column(type: "integer",nullable: false)]
     private $zoom;
 
     /**
      * @var integer
-     * @ORM\Column(type="integer",nullable=false)
      */
+    #[ORM\Column(type: "integer",nullable: false)]
     private $height;
 
     /**
      * @var integer
-     * @ORM\Column(type="integer",nullable=false)
      */
+    #[ORM\Column(type: "integer",nullable: false)]
     private $width;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255)
      */
+    #[ORM\Column(type: "string",length: 255)]
     private $heightType;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255)
      */
+    #[ORM\Column(type: "string",length: 255)]
     private $widthType;
 
     /**
      * @var boolean
-     * @ORM\Column(type="boolean", nullable=false)
      */
+    #[ORM\Column(type: "boolean", nullable: false)]
     private $isActive;
 
     /**
      * @var boolean
-     * @ORM\Column(type="boolean", nullable=false)
      */
+    #[ORM\Column(type: "boolean", nullable: false)]
     private $isShowName;
 
     /**
      * @var ArrayCollection|MapTranslation[]
-     * @ORM\OneToMany(targetEntity="MapTranslation", mappedBy="map",cascade={"persist", "remove"})
      */
+    #[ORM\OneToMany(targetEntity: "MapTranslation", mappedBy: "map",cascade: ["persist", "remove"])]
     private $translations;
 
     /**

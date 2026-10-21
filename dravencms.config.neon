@@ -1,0 +1,16 @@
+extensions:
+    dravencms.map: Dravencms\Map\DI\MapExtension
+
+services:
+    map.mapPresenter:
+        class: Dravencms\AdminModule\MapModule\MapPresenter
+
+nettrine.orm:
+    managers:
+        default:
+            mapping:
+                DravencmsMap:
+                    type: attributes
+                    directories:
+                        - %appDir%/../vendor/dravencms/map/src/Dravencms/Model/Map/Entities
+                    namespace: Dravencms\Model\Map

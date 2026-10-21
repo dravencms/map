@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  *
@@ -27,7 +27,7 @@ use Dravencms\Model\Map\Entities\Map;
 use Dravencms\Model\Map\Entities\MapTranslation;
 use Dravencms\Model\Map\Repository\MapRepository;
 use Dravencms\Model\Map\Repository\MapTranslationRepository;
-use Kdyby\Doctrine\EntityManager;
+use Dravencms\Database\EntityManager;
 use Nette\Application\UI\Form;
 
 /**
@@ -73,7 +73,7 @@ class MapForm extends BaseControl
         MapRepository $mapRepository,
         MapTranslationRepository $mapTranslationRepository,
         LocaleRepository $localeRepository,
-        Map $map = null
+        ?Map $map = null
     ) {
         parent::__construct();
 

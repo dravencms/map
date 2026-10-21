@@ -1,20 +1,20 @@
-<?php
+<?php declare(strict_types=1);
 namespace Dravencms\Model\Map\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 use Dravencms\Model\Locale\Entities\Locale;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Dravencms\Database\Attributes\TimestampableEntity;
+use Dravencms\Database\Attributes\Identifier;
 use Nette;
 
 /**
  * Class Map
  * @package App\Model\Map\Entities
- * @ORM\Entity
- * @ORM\Table(name="mapMapTranslation")
  */
+#[ORM\Entity]
+#[ORM\Table(name: "mapMapTranslation")]
 class MapTranslation
 {
     use Nette\SmartObject;
@@ -23,28 +23,28 @@ class MapTranslation
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=false)
      */
+    #[ORM\Column(type: "string",length: 255,nullable: false)]
     private $name;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255,nullable=true)
      */
+    #[ORM\Column(type: "string",length: 255,nullable: true)]
     private $title;
 
     /**
      * @var Locale
-     * @ORM\ManyToOne(targetEntity="Dravencms\Model\Locale\Entities\Locale")
-     * @ORM\JoinColumn(name="locale_id", referencedColumnName="id")
      */
+    #[ORM\ManyToOne(targetEntity: "Dravencms\Model\Locale\Entities\Locale")]
+    #[ORM\JoinColumn(name: "locale_id", referencedColumnName: "id")]
     private $locale;
 
     /**
      * @var Map
-     * @ORM\ManyToOne(targetEntity="Map", inversedBy="translations")
-     * @ORM\JoinColumn(name="map_id", referencedColumnName="id")
      */
+    #[ORM\ManyToOne(targetEntity: "Map", inversedBy: "translations")]
+    #[ORM\JoinColumn(name: "map_id", referencedColumnName: "id")]
     private $map;
 
     /**

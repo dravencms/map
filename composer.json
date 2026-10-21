@@ -15,11 +15,12 @@
     }
   ],
   "require": {
-    "dravencms/structure": "@dev",
-    "dravencms/admin": "@dev"
+    "dravencms/structure": "^2.3",
+    "dravencms/admin": "^2.3.1",
+    "php": "^8.4"
   },
   "require-dev": {
-    "nette/tester": "@dev"
+    "nette/tester": "^2.6"
   },
   "autoload": {
     "psr-0": {
@@ -28,20 +29,7 @@
   },
   "extra": {
     "dravencms": {
-      "configuration": {
-        "extensions": {
-          "map": "Dravencms\\Map\\DI\\MapExtension"
-        },
-        "doctrine":{
-          "metadata": {
-            "Dravencms\\Model\\Map": "%appDir%/../vendor/dravencms/map/src/Dravencms/Model/Map"
-          }
-        }
-      },
-      "scripts": {
-        "post-install": "Dravencms\\Map\\Script\\PostInstall",
-        "pre-uninstall": "Dravencms\\Map\\Script\\PreUninstall"
-      }
+      "configuration": "dravencms.config.neon"
     }
   }
 }

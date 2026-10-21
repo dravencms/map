@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  *
@@ -28,5 +28,5 @@ interface MapFormFactory
      * @param Map|null $map
      * @return MapForm
      */
-    public function create(Map $map = null);
+    public function create(?Map $map = null): MapForm;
 }

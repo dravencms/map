@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
@@ -8,7 +8,7 @@ namespace Dravencms\Model\Map\Fixtures;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Dravencms\Model\Admin\Entities\Menu;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class AdminMenuFixtures extends AbstractFixture implements DependentFixtureInterface
 {
@@ -17,11 +17,11 @@ class AdminMenuFixtures extends AbstractFixture implements DependentFixtureInter
      *
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $menu = $manager->getRepository(Menu::class);
 
-        $adminMenu = new Menu('Maps', ':Admin:Map:Map', 'fa-map', $this->getReference('user-acl-operation-map-edit'));
+        $adminMenu = new Menu('Maps', ':Admin:Map:Map', 'fa-map', $this->getReference('user-acl-operation-map-edit', \Dravencms\Model\User\Entities\AclOperation::class));
 
         if ($parent = $menu->findOneBy(['name' => 'Site items']))
         {
@@ -39,7 +39,7 @@ class AdminMenuFixtures extends AbstractFixture implements DependentFixtureInter
      *
      * @return integer
      */
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return ['Dravencms\Model\Map\Fixtures\AclOperationFixtures', 'Dravencms\Model\Structure\Fixtures\AdminMenuFixtures'];
     }

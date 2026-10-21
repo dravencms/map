@@ -10,21 +10,24 @@
     </div><!--//gmap-wrapper-->
 </article>
 
+{var $canvasId = 'gmap_canvas_' . Nette\Utils\Strings::webalize($map->getIdentifier())}
+{var $address = $map->getStreet() . ' ' . $map->getZipCode() . ' ' . $map->getCity()}
+{capture $infoWindow}<b>{$mapTranslation->getTitle()}</b><br>{$map->getStreet()}<br>{$map->getZipCode()} {$map->getCity()}{/capture}
 <script type="text/javascript">
     function initMap() {
 
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({
-            "address": "{$map->getStreet()|noescape} {$map->getZipCode()|noescape} {$map->getCity()|noescape}"
+            "address": {$address}
         }, function (results) {
             var myOptions = {
-                zoom:{$map->getZoom()|noescape},
+                zoom:{$map->getZoom()},
                 center: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()),
-                mapTypeId: google.maps.MapTypeId.{$map->getType()|noescape}
+                mapTypeId: google.maps.MapTypeId[{$map->getType()}]
             };
-            map = new google.maps.Map(document.getElementById("gmap_canvas_{$map->getIdentifier()|webalize|noescape}"), myOptions);
+            map = new google.maps.Map(document.getElementById({$canvasId}), myOptions);
             marker = new google.maps.Marker({ map: map, position: new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng())});
-            infowindow = new google.maps.InfoWindow({ content: "<b>{$mapTranslation->getTitle()|noescape}</b><br/>{$map->getStreet()|noescape}<br/>{$map->getZipCode()|noescape} {$map->getCity()|noescape}"});
+            infowindow = new google.maps.InfoWindow({ content: {$infoWindow}});
             google.maps.event.addListener(marker, "click", function () {
                 infowindow.open(map, marker);
             });

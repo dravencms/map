@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Dravencms\FrontModule\Components\Map\Map\Detail;
 
@@ -11,7 +11,7 @@ use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Locale\CurrentLocale;
 use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Model\Map\Repository\MapRepository;
-use Salamek\Cms\ICmsActionOption;
+use Dravencms\Structure\ICmsActionOption;
 
 /**
  * Description of ShopPresenter

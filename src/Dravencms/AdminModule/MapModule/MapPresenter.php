@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * To change this template, choose Tools | Templates
@@ -32,19 +32,17 @@ class MapPresenter extends SecuredPresenter
     /** @var null|Map */
     private $map = null;
 
-    /**
-     * @isAllowed(map,edit)
-     */
+    #[\Dravencms\User\Attributes\IsAllowed('map', 'edit')]
     public function renderDefault()
     {
         $this->template->h1 = 'Maps';
     }
 
     /**
-     * @isAllowed(map,edit)
      * @param $id
      * @throws \Nette\Application\BadRequestException
      */
+    #[\Dravencms\User\Attributes\IsAllowed('map', 'edit')]
     public function actionEdit($id)
     {
         if ($id) {
