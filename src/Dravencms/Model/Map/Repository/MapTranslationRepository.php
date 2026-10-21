@@ -67,10 +67,8 @@ class MapTranslationRepository
             ->join('mt.map', 'm')
             ->where('mt.name = :name')
             ->andWhere('mt.locale = :locale')
-            ->setParameters([
-                'name' => $name,
-                'locale' => $locale
-            ]);
+            ->setParameter('name', $name)
+            ->setParameter('locale', $locale);
 
         if ($mapIgnore)
         {
