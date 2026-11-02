@@ -1,0 +1,79 @@
+admin:
+	field:
+		name: Name
+		title: Title
+		apiKey: API key
+		street: Street
+		zipCode: Postal code
+		city: City
+		type: Map type
+		zoom: Zoom
+		width: Width
+		height: Height
+		widthType: Width unit
+		heightType: Height unit
+		identifier: Identifier
+		active: Active
+		showName: Show name
+		updated: Last edit
+
+	action:
+		save: Save
+		edit: Edit
+		delete: Delete
+		exportAll: CSV export
+		exportFiltered: 'CSV export (filtered)'
+
+	title:
+		maps: Maps
+		newMap: New map
+		editMap: Edit map "%identifier%"
+
+	option:
+		roadmap: Road map
+		satellite: Satellite
+		hybrid: Satellite with street names
+		terrain: Terrain
+		pixels: Pixels
+		percent: Percent
+
+	zoom:
+		fullyOut: Fully zoomed out
+		world: '2000 km (world)'
+		continent: '400 km (continent)'
+		area: '15 km (area)'
+		city: '2 km (city)'
+		district: '400 m (district)'
+		street: '50 m (street)'
+		house: '5 m (house)'
+
+	validation:
+		nameRequired: Please enter a map name.
+		nameTooLong: The map name must contain at most %d characters.
+		titleRequired: Please enter a map title.
+		titleTooLong: The map title must contain at most %d characters.
+		apiKeyRequired: Please enter a Google Maps API key.
+		apiKeyTooLong: The API key must contain at most %d characters.
+		streetRequired: Please enter a street.
+		streetTooLong: The street name must contain at most %d characters.
+		zipCodeRequired: Please enter a postal code.
+		zipCodeTooLong: The postal code must contain at most %d characters.
+		cityRequired: Please enter a city.
+		cityTooLong: The city name must contain at most %d characters.
+		typeRequired: Please select a map type.
+		zoomRequired: Please select a map zoom level.
+		widthRequired: Please enter the map width.
+		heightRequired: Please enter the map height.
+		identifierRequired: Please enter a map identifier.
+		widthTypeRequired: Please select the map width unit.
+		heightTypeRequired: Please select the map height unit.
+		nameTaken: This name is already in use.
+		editForbidden: You do not have permission to edit maps.
+
+	confirm:
+		delete: Are you sure you want to delete "%s"?
+
+	flash:
+		saved: The map has been saved.
+		deleted: The map has been deleted.
+

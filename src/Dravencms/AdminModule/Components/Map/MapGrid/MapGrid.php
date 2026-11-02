@@ -93,39 +93,39 @@ class MapGrid extends BaseControl
 
         $grid->setDataSource($this->mapRepository->getMapQueryBuilder());
 
-        $grid->addColumnText('identifier', 'Identifier')
+        $grid->addColumnText('identifier', 'map.admin.field.identifier')
             ->setSortable()
             ->setFilterText();
 
-        $grid->addColumnDateTime('updatedAt', 'Last edit')
+        $grid->addColumnDateTime('updatedAt', 'map.admin.field.updated')
             ->setFormat($this->currentLocale->getDateTimeFormat())
             ->setAlign('center')
             ->setSortable()
             ->setFilterDate();
 
-        $grid->addColumnBoolean('isActive', 'Active');
+        $grid->addColumnBoolean('isActive', 'map.admin.field.active');
 
 
-        if ($this->presenter->isAllowed('map', 'edit')) {
+        if ($this->getPresenter()->isAllowed('map', 'edit')) {
 
-            $grid->addAction('edit', 'Upravit')
+            $grid->addAction('edit', 'map.admin.action.edit')
                 ->setIcon('pencil')
-                ->setTitle('Upravit')
+                ->setTitle('map.admin.action.edit')
                 ->setClass('btn btn-sm btn-primary');
         }
 
-        if ($this->presenter->isAllowed('map', 'delete')) {
+        if ($this->getPresenter()->isAllowed('map', 'delete')) {
             $grid->addAction('delete', '', 'delete!')
                 ->setIcon('trash')
-                ->setTitle('Smazat')
+                ->setTitle('map.admin.action.delete')
                 ->setClass('btn btn-sm btn-danger ajax')
-                ->setConfirmation(new \Contributte\Datagrid\Column\Action\Confirmation\StringConfirmation('Do you really want to delete row %s?', 'identifier'));
-            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'handleDelete'];
+                ->setConfirmation(new \Contributte\Datagrid\Column\Action\Confirmation\StringConfirmation('map.admin.confirm.delete', 'identifier'));
+            $grid->addGroupAction('map.admin.action.delete')->onSelect[] = [$this, 'handleDelete'];
         }
-        $grid->addExportCsvFiltered('Csv export (filtered)', 'articles_filtered.csv')
-            ->setTitle('Csv export (filtered)');
-        $grid->addExportCsv('Csv export', 'articlesall.csv')
-            ->setTitle('Csv export');
+        $grid->addExportCsvFiltered('map.admin.action.exportFiltered', 'articles_filtered.csv')
+            ->setTitle('map.admin.action.exportFiltered');
+        $grid->addExportCsv('map.admin.action.exportAll', 'articlesall.csv')
+            ->setTitle('map.admin.action.exportAll');
 
         return $grid;
     }

@@ -1,0 +1,79 @@
+admin:
+	field:
+		name: Název
+		title: Titulek
+		apiKey: API klíč
+		street: Ulice
+		zipCode: PSČ
+		city: Město
+		type: Typ mapy
+		zoom: Přiblížení
+		width: Šířka
+		height: Výška
+		widthType: Jednotka šířky
+		heightType: Jednotka výšky
+		identifier: Identifikátor
+		active: Aktivní
+		showName: Zobrazit název
+		updated: Poslední úprava
+
+	action:
+		save: Uložit
+		edit: Upravit
+		delete: Smazat
+		exportAll: Exportovat CSV
+		exportFiltered: 'Exportovat CSV (filtrováno)'
+
+	title:
+		maps: Mapy
+		newMap: Nová mapa
+		editMap: Upravit mapu „%identifier%“
+
+	option:
+		roadmap: Silniční mapa
+		satellite: Satelitní mapa
+		hybrid: Satelitní mapa s názvy ulic
+		terrain: Terénní mapa
+		pixels: Pixely
+		percent: Procenta
+
+	zoom:
+		fullyOut: Největší oddálení
+		world: '2000 km (svět)'
+		continent: '400 km (kontinent)'
+		area: '15 km (oblast)'
+		city: '2 km (město)'
+		district: '400 m (čtvrť)'
+		street: '50 m (ulice)'
+		house: '5 m (dům)'
+
+	validation:
+		nameRequired: Zadejte název mapy.
+		nameTooLong: Název mapy smí mít nejvýše %d znaků.
+		titleRequired: Zadejte titulek mapy.
+		titleTooLong: Titulek mapy smí mít nejvýše %d znaků.
+		apiKeyRequired: Zadejte API klíč Google Maps.
+		apiKeyTooLong: API klíč smí mít nejvýše %d znaků.
+		streetRequired: Zadejte ulici.
+		streetTooLong: Název ulice smí mít nejvýše %d znaků.
+		zipCodeRequired: Zadejte PSČ.
+		zipCodeTooLong: PSČ smí mít nejvýše %d znaků.
+		cityRequired: Zadejte město.
+		cityTooLong: Název města smí mít nejvýše %d znaků.
+		typeRequired: Vyberte typ mapy.
+		zoomRequired: Vyberte přiblížení mapy.
+		widthRequired: Zadejte šířku mapy.
+		heightRequired: Zadejte výšku mapy.
+		identifierRequired: Zadejte identifikátor mapy.
+		widthTypeRequired: Vyberte jednotku šířky mapy.
+		heightTypeRequired: Vyberte jednotku výšky mapy.
+		nameTaken: Tento název je již používán.
+		editForbidden: Nemáte oprávnění upravovat mapy.
+
+	confirm:
+		delete: Opravdu chcete smazat „%s“?
+
+	flash:
+		saved: Mapa byla uložena.
+		deleted: Mapa byla smazána.
+

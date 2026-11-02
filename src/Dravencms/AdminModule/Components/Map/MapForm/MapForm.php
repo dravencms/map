@@ -97,93 +97,93 @@ class MapForm extends BaseControl
             $container = $form->addContainer($activeLocale->getLanguageCode());
 
             $container->addText('name')
-                ->setRequired('Please enter map name.')
-                ->addRule(Form::MAX_LENGTH, 'Map name is too long.', 255);
+                ->setRequired('map.admin.validation.nameRequired')
+                ->addRule(Form::MAX_LENGTH, 'map.admin.validation.nameTooLong', 255);
 
             $container->addText('title')
-                ->setRequired('Please enter map title.')
-                ->addRule(Form::MAX_LENGTH, 'Map title is too long.', 255);
+                ->setRequired('map.admin.validation.titleRequired')
+                ->addRule(Form::MAX_LENGTH, 'map.admin.validation.titleTooLong', 255);
         }
 
         $form->addText('apiKey')
-            ->setRequired('Please enter google map api key.')
-            ->addRule(Form::MAX_LENGTH, 'Api key is too long.', 255);
+            ->setRequired('map.admin.validation.apiKeyRequired')
+            ->addRule(Form::MAX_LENGTH, 'map.admin.validation.apiKeyTooLong', 255);
 
         $form->addText('street')
-            ->setRequired('Please enter map street.')
-            ->addRule(Form::MAX_LENGTH, 'Street name is too long.', 255);
+            ->setRequired('map.admin.validation.streetRequired')
+            ->addRule(Form::MAX_LENGTH, 'map.admin.validation.streetTooLong', 255);
 
         $form->addText('zipCode')
-            ->setRequired('Please enter map Zip Code.')
-            ->addRule(Form::MAX_LENGTH, 'Zip Code is too long.', 255);
+            ->setRequired('map.admin.validation.zipCodeRequired')
+            ->addRule(Form::MAX_LENGTH, 'map.admin.validation.zipCodeTooLong', 255);
 
         $form->addText('city')
-            ->setRequired('Please enter map City.')
-            ->addRule(Form::MAX_LENGTH, 'City is too long.', 255);
+            ->setRequired('map.admin.validation.cityRequired')
+            ->addRule(Form::MAX_LENGTH, 'map.admin.validation.cityTooLong', 255);
 
 
         $types = array();
-        $types[Map::TYPE_ROADMAP] = 'Roadmap';
-        $types[Map::TYPE_SATELLITE] = 'Satellite';
-        $types[Map::TYPE_HYBRID] = 'Satellite with street names';
-        $types[Map::TYPE_TERRAIN] = 'Terrain';
-        $form->addSelect('type', 'Type:', $types)
-            ->setRequired('Please enter map type.')
-            ->setAttribute('class', 'form-control');
+        $types[Map::TYPE_ROADMAP] = 'map.admin.option.roadmap';
+        $types[Map::TYPE_SATELLITE] = 'map.admin.option.satellite';
+        $types[Map::TYPE_HYBRID] = 'map.admin.option.hybrid';
+        $types[Map::TYPE_TERRAIN] = 'map.admin.option.terrain';
+        $form->addSelect('type', 'map.admin.field.type', $types)
+            ->setRequired('map.admin.validation.typeRequired')
+            ->setHtmlAttribute('class', 'form-control');
 
 
         $zooms = [];
-        $zooms[0] = 'Fully Zoomed out';
+        $zooms[0] = 'map.admin.zoom.fullyOut';
         $zooms[1] = '4000 km';
-        $zooms[2] = '2000 km (world)';
+        $zooms[2] = 'map.admin.zoom.world';
         $zooms[3] = '1000 km';
-        $zooms[4] = '400 km (continent)';
+        $zooms[4] = 'map.admin.zoom.continent';
         $zooms[5] = '200 km';
         $zooms[6] = '100 km';
         $zooms[7] = '50 km';
         $zooms[8] = '30 km';
-        $zooms[9] = '15 km (area)';
+        $zooms[9] = 'map.admin.zoom.area';
         $zooms[10] = '8 km';
         $zooms[11] = '4 km';
-        $zooms[12] = '2 km (city)';
+        $zooms[12] = 'map.admin.zoom.city';
         $zooms[13] = '1 km';
-        $zooms[14] = '400 m (district)';
+        $zooms[14] = 'map.admin.zoom.district';
         $zooms[15] = '200 m';
         $zooms[16] = '100 m';
-        $zooms[17] = '50 m (street)';
+        $zooms[17] = 'map.admin.zoom.street';
         $zooms[18] = '20 m';
         $zooms[19] = '10 m';
-        $zooms[20] = '5 m (house)';
+        $zooms[20] = 'map.admin.zoom.house';
         $zooms[20] = '2.5 m';
         $form->addSelect('zoom', null, $zooms)
-            ->setRequired('Please enter map zoom.');
+            ->setRequired('map.admin.validation.zoomRequired');
 
         $form->addText('width')
-            ->setRequired('Please enter map width.');
+            ->setRequired('map.admin.validation.widthRequired');
 
         $form->addText('height')
-            ->setRequired('Please enter map height.');
+            ->setRequired('map.admin.validation.heightRequired');
 
         $form->addText('identifier')
-            ->setRequired('Please enter map identifier.');
+            ->setRequired('map.admin.validation.identifierRequired');
 
         $widthType = [];
-        $widthType[Map::WIDTH_TYPE_PX] = 'Pixels';
-        $widthType[Map::WIDTH_TYPE_PERCENT] = 'Percent';
+        $widthType[Map::WIDTH_TYPE_PX] = 'map.admin.option.pixels';
+        $widthType[Map::WIDTH_TYPE_PERCENT] = 'map.admin.option.percent';
         $form->addSelect('widthType', null, $widthType)
-            ->setRequired('Please enter map width type.');
+            ->setRequired('map.admin.validation.widthTypeRequired');
 
         $heightType = [];
-        $heightType[Map::HEIGHT_TYPE_PX] = 'Pixels';
-        $heightType[Map::HEIGHT_TYPE_PERCENT] = 'Percent';
+        $heightType[Map::HEIGHT_TYPE_PX] = 'map.admin.option.pixels';
+        $heightType[Map::HEIGHT_TYPE_PERCENT] = 'map.admin.option.percent';
         $form->addSelect('heightType', null, $heightType)
-            ->setRequired('Please enter map height type.');
+            ->setRequired('map.admin.validation.heightTypeRequired');
 
         $form->addCheckbox('isActive');
         $form->addCheckbox('isShowName');
 
 
-        $form->addSubmit('send');
+        $form->addSubmit('send', 'map.admin.action.save');
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
@@ -232,12 +232,12 @@ class MapForm extends BaseControl
 
         foreach ($this->localeRepository->getActive() AS $activeLocale) {
             if (!$this->mapTranslationRepository->isNameFree($values->{$activeLocale->getLanguageCode()}->name, $activeLocale, $this->map)) {
-                $form->addError('Tento název je již zabrán.');
+                $form->addError('map.admin.validation.nameTaken');
             }
         }
 
-        if (!$this->presenter->isAllowed('map', 'edit')) {
-            $form->addError('Nemáte oprávění editovat map.');
+        if (!$this->getPresenter()->isAllowed('map', 'edit')) {
+            $form->addError('map.admin.validation.editForbidden');
         }
     }
 

@@ -35,7 +35,7 @@ class MapPresenter extends SecuredPresenter
     #[\Dravencms\User\Attributes\IsAllowed('map', 'edit')]
     public function renderDefault()
     {
-        $this->template->h1 = 'Maps';
+        $this->template->h1 = $this->translator->translate('map.admin.title.maps');
     }
 
     /**
@@ -54,9 +54,9 @@ class MapPresenter extends SecuredPresenter
 
             $this->map = $map;
 
-            $this->template->h1 = sprintf('Edit map „%s“', $map->getIdentifier());
+            $this->template->h1 = $this->translator->translate('map.admin.title.editMap', ['identifier' => $map->getIdentifier()]);
         } else {
-            $this->template->h1 = 'New map';
+            $this->template->h1 = $this->translator->translate('map.admin.title.newMap');
         }
     }
 
@@ -68,7 +68,7 @@ class MapPresenter extends SecuredPresenter
         $control = $this->mapFormFactory->create($this->map);
         $control->onSuccess[] = function()
         {
-            $this->flashMessage('Map has been successfully saved', 'alert-success');
+            $this->flashMessage($this->translator->translate('map.admin.flash.saved'), 'alert-success');
             $this->redirect('Map:');
         };
         return $control;
@@ -82,7 +82,7 @@ class MapPresenter extends SecuredPresenter
         $control = $this->mapGridFactory->create();
         $control->onDelete[] = function()
         {
-            $this->flashMessage('Map has been successfully deleted', 'alert-success');
+            $this->flashMessage($this->translator->translate('map.admin.flash.deleted'), 'alert-success');
             $this->redirect('Map:');
         };
         return $control;

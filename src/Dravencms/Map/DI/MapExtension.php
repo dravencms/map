@@ -2,6 +2,7 @@
 
 namespace Dravencms\Map\DI;
 
+use Contributte\Translation\DI\TranslationProviderInterface;
 use Dravencms\Map\Map;
 
 use Nette\DI\CompilerExtension;
@@ -10,8 +11,12 @@ use Dravencms\Structure\DI\StructureExtension;
  * Class MapExtension
  * @package Dravencms\Map\DI
  */
-class MapExtension extends CompilerExtension
+class MapExtension extends CompilerExtension implements TranslationProviderInterface
 {
+    public function getTranslationResources(): array
+    {
+        return [__DIR__ . '/../lang'];
+    }
 
     public function loadConfiguration(): void
     {
