@@ -111,14 +111,14 @@ class MapGrid extends BaseControl
             $grid->addAction('edit', 'Upravit')
                 ->setIcon('pencil')
                 ->setTitle('Upravit')
-                ->setClass('btn btn-xs btn-primary');
+                ->setClass('btn btn-sm btn-primary');
         }
 
         if ($this->presenter->isAllowed('map', 'delete')) {
             $grid->addAction('delete', '', 'delete!')
                 ->setIcon('trash')
                 ->setTitle('Smazat')
-                ->setClass('btn btn-xs btn-danger ajax')
+                ->setClass('btn btn-sm btn-danger ajax')
                 ->setConfirmation(new \Contributte\Datagrid\Column\Action\Confirmation\StringConfirmation('Do you really want to delete row %s?', 'identifier'));
             $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'handleDelete'];
         }
