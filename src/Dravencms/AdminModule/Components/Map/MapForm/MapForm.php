@@ -84,39 +84,6 @@ class MapForm extends BaseControl
         $this->mapRepository = $mapRepository;
         $this->mapTranslationRepository = $mapTranslationRepository;
         $this->localeRepository = $localeRepository;
-
-
-        if ($this->map) {
-            $defaults = [
-                'apiKey' => $this->map->getApiKey(),
-                'street' => $this->map->getStreet(),
-                'zipCode' => $this->map->getZipCode(),
-                'city' => $this->map->getCity(),
-                'type' => $this->map->getType(),
-                'zoom' => $this->map->getZoom(),
-                'width' => $this->map->getWidth(),
-                'height' => $this->map->getHeight(),
-                'widthType' => $this->map->getWidthType(),
-                'heightType' => $this->map->getHeightType(),
-                'isActive' => $this->map->isActive(),
-                'isShowName' => $this->map->isShowName(),
-                'identifier' => $this->map->getIdentifier()
-            ];
-
-            foreach ($this->map->getTranslations() AS $translation)
-            {
-                $defaults[$translation->getLocale()->getLanguageCode()]['name'] = $translation->getName();
-                $defaults[$translation->getLocale()->getLanguageCode()]['title'] = $translation->getTitle();
-            }
-        }
-        else{
-            $defaults = [
-                'isActive' => true,
-                'isShowName' => true
-            ];
-        }
-
-        $this['form']->setDefaults($defaults);
     }
 
     /**
@@ -220,6 +187,38 @@ class MapForm extends BaseControl
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
+
+        if ($this->map) {
+            $defaults = [
+                'apiKey' => $this->map->getApiKey(),
+                'street' => $this->map->getStreet(),
+                'zipCode' => $this->map->getZipCode(),
+                'city' => $this->map->getCity(),
+                'type' => $this->map->getType(),
+                'zoom' => $this->map->getZoom(),
+                'width' => $this->map->getWidth(),
+                'height' => $this->map->getHeight(),
+                'widthType' => $this->map->getWidthType(),
+                'heightType' => $this->map->getHeightType(),
+                'isActive' => $this->map->isActive(),
+                'isShowName' => $this->map->isShowName(),
+                'identifier' => $this->map->getIdentifier()
+            ];
+
+            foreach ($this->map->getTranslations() AS $translation)
+            {
+                $defaults[$translation->getLocale()->getLanguageCode()]['name'] = $translation->getName();
+                $defaults[$translation->getLocale()->getLanguageCode()]['title'] = $translation->getTitle();
+            }
+        }
+        else{
+            $defaults = [
+                'isActive' => true,
+                'isShowName' => true
+            ];
+        }
+
+        $form->setDefaults($defaults);
 
         return $form;
     }
