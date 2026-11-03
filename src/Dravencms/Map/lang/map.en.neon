@@ -80,3 +80,11 @@ admin:
 
 menu:
     overview: 'Maps'
+
+acl:
+    resource: 'Maps'
+    permissions:
+        edit:
+            label: 'Manage maps'
+        delete:
+            label: 'Delete maps'

@@ -80,3 +80,11 @@ admin:
 
 menu:
     overview: 'Mapy'
+
+acl:
+    resource: 'Mapy'
+    permissions:
+        edit:
+            label: 'Spravovat mapy'
+        delete:
+            label: 'Mazat mapy'
