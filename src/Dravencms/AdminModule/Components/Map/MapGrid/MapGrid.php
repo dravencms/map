@@ -90,6 +90,7 @@ class MapGrid extends BaseControl
     public function createComponentGrid($name)
     {
         $grid = $this->baseGridFactory->create($this, $name);
+        $grid->setWritePermission('map', 'edit');
 
         $grid->setDataSource($this->mapRepository->getMapQueryBuilder());
 
@@ -135,8 +136,11 @@ class MapGrid extends BaseControl
      * @param $id
      * @throws \Exception
      */
+    #[\Dravencms\User\Attributes\IsAllowed('map', 'delete')]
+    #[\Dravencms\Security\Mutation]
     public function handleDelete($id)
     {
+        $this->requirePermission('map', 'delete');
         $maps = $this->mapRepository->getById($id);
         foreach ($maps AS $map)
         {

@@ -18,6 +18,7 @@ use Dravencms\Model\Map\Repository\MapRepository;
  *
  * @author sadam
  */
+#[\Dravencms\User\Attributes\IsAllowed('map', 'edit')]
 class MapPresenter extends SecuredPresenter
 {
     /** @var MapRepository @inject */
