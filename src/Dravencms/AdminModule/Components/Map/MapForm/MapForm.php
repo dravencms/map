@@ -247,7 +247,6 @@ class MapForm extends BaseControl
      */
     public function editFormSucceeded(Form $form)
     {
-        $this->requirePermission('map', 'edit');
         $values = $form->getValues();
         
         if ($this->map) {
