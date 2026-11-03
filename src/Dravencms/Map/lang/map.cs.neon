@@ -77,3 +77,6 @@ admin:
 		saved: Mapa byla uložena.
 		deleted: Mapa byla smazána.
 
+
+menu:
+    overview: 'Mapy'

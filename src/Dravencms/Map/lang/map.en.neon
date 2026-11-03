@@ -77,3 +77,6 @@ admin:
 		saved: The map has been saved.
 		deleted: The map has been deleted.
 
+
+menu:
+    overview: 'Maps'
